@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { userLogin } from "../utils/UserLogin";
+import React from "react";
 import ErrorMessage from "./ErrorMessage";
+import Dashboard from "./Dashboard";
 
 import {
   Flex,
@@ -11,77 +11,34 @@ import {
   Input,
   Button,
   CircularProgress,
-  Text,
   InputGroup,
 } from "@chakra-ui/react";
 
-import PropTypes from "prop-types";
+import { useContext } from "react";
+import UserContext from "../context/userContext";
 
-async function loginUser(credentials) {
-  return fetch("http://localhost:8080/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(credentials),
-  }).then((data) => data.json());
-}
-
-export default function Login({ setToken }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const [error, setError] = useState("");
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setIsLoading(true);
-    const token = await loginUser({
-      email,
-      password,
-    });
-    setToken(token);
-    try {
-      await userLogin({ email, password });
-      setIsLoggedIn(true);
-      setIsLoading(false);
-    } catch (error) {
-      setError("Invalid username or password");
-      setIsLoading(false);
-      setEmail("");
-      setPassword("");
-    }
-  };
+export default function UserLogin(props) {
+  let user = useContext(UserContext);
+  let { setEmail, setPassword, isLoading, error, isLoggedIn } = user.data;
+  let { handleSubmit } = user;
 
   return (
     <>
-      <Flex width="full" align="center" justifyContent="center">
-        <Box
-          p={8}
-          maxWidth="500px"
-          borderWidth={1}
-          borderRadius={8}
-          boxShadow="lg"
-          my={40}
-        >
-          {isLoggedIn ? (
-            <Box textAlign="center">
-              <Text>{email} logged in!</Text>
-              <Button
-                variantColor="orange"
-                variant="outline"
-                width="full"
-                mt={4}
-                onClick={() => setIsLoggedIn(false)}
-              >
-                Sign out
-              </Button>
-            </Box>
-          ) : (
-            <>
+      {isLoggedIn ? (
+        <>
+          <Dashboard />
+        </>
+      ) : (
+        <>
+          <Flex width="full" align="center" justifyContent="center">
+            <Box
+              p={8}
+              maxWidth="500px"
+              borderWidth={1}
+              borderRadius={8}
+              boxShadow="lg"
+              my={40}
+            >
               <Box textAlign="center">
                 <Heading>Login</Heading>
               </Box>
@@ -101,6 +58,7 @@ export default function Login({ setToken }) {
                     <FormLabel>Password</FormLabel>
                     <InputGroup>
                       <Input
+                        type="password"
                         placeholder="*******"
                         size="lg"
                         onChange={(event) =>
@@ -128,14 +86,10 @@ export default function Login({ setToken }) {
                   </Button>
                 </form>
               </Box>
-            </>
-          )}
-        </Box>
-      </Flex>
+            </Box>
+          </Flex>
+        </>
+      )}
     </>
   );
 }
-
-Login.propTypes = {
-  setToken: PropTypes.func.isRequired,
-};
