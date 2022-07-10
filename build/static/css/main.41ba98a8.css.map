@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/main.41ba98a8.css","mappings":"AAAA,SACE,YACF,CCFA,eAGE,kBAAmB,CAFnB,YAAa,CACb,qBAEF","sources":["Components/App.css","Components/Login.css"],"sourcesContent":[".wrapper {\r\n  padding: 20px;\r\n}\r\n",".login-wrapper {\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n}\r\n"],"names":[],"sourceRoot":""}
