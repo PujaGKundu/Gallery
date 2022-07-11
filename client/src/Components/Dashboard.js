@@ -24,6 +24,19 @@ const Record = (props) => (
       >
         {props.record.name}
       </Text>
+      <Link to={`/${props.record._id}`}>
+        <Button
+          colorScheme="blue"
+          variant="outline"
+          type="submit"
+          width="full"
+          mt={4}
+          mr={4}
+        >
+          View Details
+        </Button>
+      </Link>
+
       {props.isLoggedIn ? (
         <Flex mt={2} align="center">
           <Link to={`/edit/${props.record._id}`}>
@@ -59,7 +72,7 @@ const Record = (props) => (
   </>
 );
 
-export default function Dashboard() {
+function Dashboard() {
   let user = useContext(UserContext);
   let { isLoggedIn } = user.data;
 
@@ -114,7 +127,7 @@ export default function Dashboard() {
       {isLoggedIn ? (
         <Link to="/add">
           <Button
-            colorScheme="blue"
+            colorScheme="teal"
             variant="solid"
             type="submit"
             width="full"
@@ -139,3 +152,5 @@ export default function Dashboard() {
     </div>
   );
 }
+
+export default Dashboard;

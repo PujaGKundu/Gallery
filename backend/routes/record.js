@@ -58,6 +58,12 @@ recordRoutes.route("/update/:id").post(function (req, response) {
       image: req.body.image,
     },
   };
+  db_connect
+    .collection("records")
+    .updateOne(myquery, newvalues, function (err, result) {
+      if (err) throw err;
+      response.json(result);
+    });
 });
 
 // This section will help you delete a record

@@ -8,6 +8,7 @@ import Dashboard from "./Dashboard";
 import Header from "./Header";
 import AddImages from "./AddImages";
 import EditImage from "./EditImage";
+import ImageDetails from "./ImageDetails";
 
 import { UserProvider } from "../context/userContext";
 import { userLogin, adminLogin } from "../utils/Login";
@@ -111,6 +112,9 @@ export default function App() {
                 </Route>
                 <Route path="/edit/:id" exact>
                   <EditImage />
+                </Route>
+                <Route path="/:id" exact>
+                  <ImageDetails />
                 </Route>
               </Switch>
             </Container>

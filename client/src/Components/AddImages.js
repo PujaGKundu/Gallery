@@ -101,7 +101,7 @@ function AddImages(props) {
                   <Textarea
                     required
                     id="description"
-                    rows="10"
+                    rows="5"
                     placeholder="Description"
                     value={form.description}
                     onChange={(e) =>

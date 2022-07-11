@@ -59,14 +59,13 @@ function EditImage(props) {
   async function onSubmit(e) {
     e.preventDefault();
     const editedImage = {
-      /*name: form.name,
+      name: form.name,
       description: form.description,
-      image: form.image,*/
-      ...form,
+      image: form.image,
     };
 
     // This will send a post request to update the data in the database.
-    await fetch(`http://localhost:8080/update/${params.id}`, {
+    await fetch(`http://localhost:8080/update/${params.id.toString()}`, {
       method: "POST",
       body: JSON.stringify(editedImage),
       headers: {
@@ -74,6 +73,7 @@ function EditImage(props) {
       },
     })
       .then((data) => {
+        console.log(data);
         props.history.push("/");
       })
       .catch((error) => {
