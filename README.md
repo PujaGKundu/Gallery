@@ -16,6 +16,4 @@
 4. User will be able to edit the collection.
 5. User can delete the collection that is create.
 
-## Deployment
 
-### Live URL
